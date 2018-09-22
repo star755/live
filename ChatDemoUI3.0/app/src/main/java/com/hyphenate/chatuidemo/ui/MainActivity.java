@@ -29,6 +29,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +51,9 @@ import com.hyphenate.chatuidemo.HMSPushHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.db.InviteMessgeDao;
 import com.hyphenate.chatuidemo.db.UserDao;
+import com.hyphenate.chatuidemo.restapi.BackException;
+import com.hyphenate.chatuidemo.restapi.BackManager;
+import com.hyphenate.chatuidemo.restapi.model.UserModule;
 import com.hyphenate.chatuidemo.runtimepermissions.PermissionsManager;
 import com.hyphenate.chatuidemo.runtimepermissions.PermissionsResultAction;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
@@ -210,6 +214,21 @@ public class MainActivity extends BaseActivity {
 			break;
 		case R.id.btn_setting:
 			index = 2;
+			//测试代码
+			String name="A4";
+			String password ="123";
+			try{
+				UserModule user = BackManager.getInstance().doLogin(name,password);
+				Log.d(user.name,user.password);
+
+			}catch (BackException e){
+
+			}
+
+
+
+
+
 			break;
 		}
 		if (currentTabIndex != index) {
