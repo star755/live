@@ -71,10 +71,10 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        if (EMClient.getInstance().isLoggedInBefore()) {
-            gotoSuccess();
-            return;
-        }
+        //if (EMClient.getInstance().isLoggedInBefore()) {
+        //    gotoSuccess();
+        //    return;
+        //}
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
