@@ -84,7 +84,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
     /**
      * 环信聊天室id
      */
-    protected String chatroomId = "";
+    protected String chatroomId = "61095445331969";
     /**
      * ucloud直播id
      */

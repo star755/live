@@ -17,6 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginBottom="48dp"
+            android:visibility="gone"
             >
 
         </com.easemob.livedemo.ucloud.LiveCameraView>
@@ -48,9 +50,8 @@
         <com.easemob.livedemo.ui.widget.RoomMessagesView
             android:id="@+id/message_view"
             android:layout_width="match_parent"
-            android:layout_height="174dp"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:visibility="invisible"
             />
 
         <!-- <com.easemob.livedemo.ui.widget.BarrageLayout
@@ -65,6 +66,7 @@
             android:id="@+id/periscope_layout"
             android:layout_width="150dp"
             android:layout_height="190dp"
+            android:visibility="gone"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="42dp"
@@ -118,6 +120,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:visibility="invisible"
+        android:visibility="gone"
         />
 </RelativeLayout>
