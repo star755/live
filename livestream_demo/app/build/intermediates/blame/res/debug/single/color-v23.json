@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_thumb.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v23/abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/design_tint_password_toggle.xml",
+        "source": "/Users/pavkoo/.android/build-cache/065638b73660dcc756686f7fa5c566298b3c7c70/output/res/color-v23/design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/abc_tint_spinner.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v23/abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/abc_tint_edittext.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v23/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_borderless_text_material.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v23/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/abc_tint_default.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v23/abc_tint_default.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/abc_tint_seek_thumb.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/abc_tint_btn_checkable.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v23/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_track.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v23/abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v23/abc_color_highlight_material.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v23/abc_color_highlight_material.xml"
+    }
+]

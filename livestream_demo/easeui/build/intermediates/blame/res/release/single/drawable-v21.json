@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/easeui/build/intermediates/res/merged/release/drawable-v21/abc_action_bar_item_background_material.xml",
+        "source": "/Users/pavkoo/.android/build-cache/802fa4bcc0dc2c306a3513c709bb30de3bb00d2d/output/res/drawable-v21/abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/easeui/build/intermediates/res/merged/release/drawable-v21/abc_btn_colored_material.xml",
+        "source": "/Users/pavkoo/.android/build-cache/802fa4bcc0dc2c306a3513c709bb30de3bb00d2d/output/res/drawable-v21/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/easeui/build/intermediates/res/merged/release/drawable-v21/abc_edit_text_material.xml",
+        "source": "/Users/pavkoo/.android/build-cache/802fa4bcc0dc2c306a3513c709bb30de3bb00d2d/output/res/drawable-v21/abc_edit_text_material.xml"
+    }
+]

@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/em_contact_list_selected.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/em_contact_list_selected.png"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/em_settings_normal.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/em_settings_normal.png"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/em_contact_list_normal.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/em_contact_list_normal.png"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/em_unread_count_bg.9.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/em_unread_count_bg.9.png"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/gift_default.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/gift_default.png"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/em_settings_selected.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/em_settings_selected.png"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/pl_blue.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/pl_blue.png"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/em_unread_dot.9.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/em_unread_dot.9.png"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/pl_red.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/pl_red.png"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi/pl_yellow.png",
+        "source": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/src/main/res/drawable-xhdpi/pl_yellow.png"
+    }
+]

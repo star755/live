@@ -1,0 +1,7 @@
+#Sun Sep 23 21:38:47 CST 2018
+base.0=/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_1d714195ac14d461492a31d06b0a0112a5dddff0
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e6da3b8f1fe0f36476d59e11d3041c457944e831/classes.dex
+base.1=/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e6da3b8f1fe0f36476d59e11d3041c457944e831
+file.0=/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_1d714195ac14d461492a31d06b0a0112a5dddff0/classes.dex

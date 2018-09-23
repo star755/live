@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c323c36ecc68965c4cfb460f7721113d2b61ed03">
+        <dex dex="/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e6da3b8f1fe0f36476d59e11d3041c457944e831/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="66a5c5c99494cf8dc196713e282947bdfcb56d12">
+        <dex dex="/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_1d714195ac14d461492a31d06b0a0112a5dddff0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/pavkoo/work/mylocal/live/livestream_demo/easeui/build/intermediates/bundles/default/libs/MiPush_SDK_Client_2_2_19.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6231c3f3409df7b3172bc5e89f68fbc6beec733e">
+        <dex dex="/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/8/MiPush_SDK_Client_2_2_19_028c598a48f9709bc8b56ac606ccd29b1366e16a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/pavkoo/work/mylocal/live/livestream_demo/easeui/build/intermediates/bundles/default/libs/BaiduLBS_Android.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="58ca2fd9380a230afb00512b56878606449efa09">
+        <dex dex="/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/8/BaiduLBS_Android_a3c341b5dbe238a111dcab04b0bc0d8b8e209c8f/classes.dex" />
+    </item>
+
+</items>

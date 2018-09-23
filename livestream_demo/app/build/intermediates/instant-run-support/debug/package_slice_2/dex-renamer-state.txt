@@ -1,0 +1,4 @@
+#Sun Sep 23 13:27:46 CST 2018
+base.0=/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2
+renamed.0=classes.dex
+file.0=/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v11/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v11/abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/color-v11/abc_background_cache_hint_selector_material_light.xml",
+        "source": "/Users/pavkoo/.android/build-cache/0dc480546457174f49da8ded687a340edb35f9e1/output/res/color-v11/abc_background_cache_hint_selector_material_light.xml"
+    }
+]

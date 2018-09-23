@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_out.xml",
+        "source": "/Users/pavkoo/.android/build-cache/065638b73660dcc756686f7fa5c566298b3c7c70/output/res/anim-v21/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_in.xml",
+        "source": "/Users/pavkoo/.android/build-cache/065638b73660dcc756686f7fa5c566298b3c7c70/output/res/anim-v21/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/Users/pavkoo/work/mylocal/live/livestream_demo/app/build/intermediates/res/merged/debug/anim-v21/design_appbar_state_list_animator.xml",
+        "source": "/Users/pavkoo/.android/build-cache/065638b73660dcc756686f7fa5c566298b3c7c70/output/res/anim-v21/design_appbar_state_list_animator.xml"
+    }
+]
