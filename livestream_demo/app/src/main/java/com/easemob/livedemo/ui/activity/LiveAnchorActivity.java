@@ -83,7 +83,7 @@ public class LiveAnchorActivity extends LiveBaseActivity {
 
     public void initLiveEnv() {
         mAVOption = new AVOption();
-        mAVOption.streamUrl = liveRoom.getLivePushUrl();
+        //mAVOption.streamUrl = liveRoom.getLivePushUrl();
         mAVOption.videoFilterMode = UFilterProfile.FilterMode.GPU;
         mAVOption.videoCodecType = UVideoProfile.CODEC_MODE_HARD;
         mAVOption.videoCaptureOrientation = UVideoProfile.ORIENTATION_PORTRAIT;
@@ -188,7 +188,7 @@ public class LiveAnchorActivity extends LiveBaseActivity {
 
     void handleUpdateCountdown(final int count) {
         if (countdownView != null) {
-            countdownView.setVisibility(View.VISIBLE);
+            countdownView.setVisibility(View.GONE);
             countdownView.setText(String.format("%d", count));
             ScaleAnimation scaleAnimation =
                     new ScaleAnimation(1.0f, 0f, 1.0f, 0f, Animation.RELATIVE_TO_SELF, 0.5f,

@@ -48,6 +48,9 @@ import rx.schedulers.Schedulers;
 
 public class UserActivity extends BaseActivity implements EMMessageListener {
 
+    public static final String CHAT_ROOM = "61095445331969";
+
+
     private MyContactListener listener = new MyContactListener();
     private String userToadd;
 
@@ -139,24 +142,30 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
                         }
                         final UserModule b = userModuleBaseResponse.Data.get(0);
                         userToadd = b.name;
+                        //-------设置为默认的聊天室-------------------
                         DemoApplication.getInstance().setOther(b);
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    List<String> usernames = EMClient.getInstance().contactManager().getAllContactsFromServer();
-                                    //从唤醒 取得是小写的
-                                    if (!usernames.contains(b.name.toLowerCase())) {
-                                        EMClient.getInstance().contactManager().addContact(b.name, "live");
-                                    }
-                                } catch (HyphenateException e) {
-                                    dismissProgressDialog();
-                                    DemoApplication.getInstance().setOther(null);
-                                    e.printStackTrace();
-                                    return;
-                                }
-                            }
-                        }).start();
+                        Intent intent = new Intent(UserActivity.this, LiveAnchorActivity.class);
+                        intent.putExtra("liveroom", DemoApplication.getInstance().getRoom());
+                        startActivity(intent);
+//                        new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                try {
+//                                    List<String> usernames = EMClient.getInstance().contactManager().getAllContactsFromServer();
+//                                    //从唤醒 取得是小写的
+//                                    if (!usernames.contains(b.name.toLowerCase())) {
+//                                        EMClient.getInstance().contactManager().addContact(b.name, "live");
+//                                    }else{
+//                                        createRoom();
+//                                    }
+//                                } catch (HyphenateException e) {
+//                                    dismissProgressDialog();
+//                                    DemoApplication.getInstance().setOther(null);
+//                                    e.printStackTrace();
+//                                    return;
+//                                }
+//                            }
+//                        }).start();
 
                     }
                 });
