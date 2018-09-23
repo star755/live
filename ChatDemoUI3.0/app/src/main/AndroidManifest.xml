@@ -27,9 +27,9 @@
     <!-- 悬浮窗权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <!--bugly start-->
+    <!-- bugly start -->
     <uses-permission android:name="android.permission.READ_LOGS" />
-    <!--bugly end-->
+    <!-- bugly end -->
 
     <permission
         android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE"
@@ -48,8 +48,8 @@
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.hyphenate.chatuidemo.fileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -61,7 +61,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".conference.LiveActivity"
             android:launchMode="singleTask"
@@ -84,7 +83,6 @@
         <!-- 登陆 -->
         <activity
             android:name=".ui.LoginActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustResize|stateVisible" />
 
@@ -222,21 +220,21 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
-        <!--多人会议-->
+        <!-- 多人会议 -->
         <activity
             android:name=".conference.ConferenceActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
-            android:taskAffinity=":call"
             android:screenOrientation="portrait"
-            android:theme="@style/nornal_style"/>
+            android:taskAffinity=":call"
+            android:theme="@style/nornal_style" />
         <!-- 会议成员邀请 -->
         <activity
             android:name=".conference.ConferenceInviteActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/nornal_style"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
 
         <!-- 群聊简单信息 -->
         <activity
@@ -262,10 +260,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".ui.SharedFilesActivity"
+        <activity
+            android:name=".ui.SharedFilesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            />
+            android:theme="@style/horizontal_slide" />
         <activity
             android:name="com.hyphenate.easeui.ui.EaseShowVideoActivity"
             android:screenOrientation="portrait"
@@ -300,13 +298,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.MultiDeviceActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/horizontal_slide"
-                  android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.NamePasswordActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/horizontal_slide"/>
+        <activity
+            android:name=".ui.MultiDeviceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.NamePasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
 
         <!-- iOS offline push nick -->
         <activity
@@ -354,13 +354,13 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".fcm.EMFCMTokenRefreshService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <!-- FCM required end -->
+
 
         <!-- mi push -->
         <service
@@ -388,23 +388,28 @@
         </receiver>
         <!-- mi push end -->
 
-        <!--华为 HMS Config-->
-        <!--接入HMSSDK PUSH模块需要注册，第三方相关 :接收Push消息（注册、Push消息、Push连接状态）广播，
+
+        <!-- 华为 HMS Config -->
+        <!--
+            接入HMSSDK PUSH模块需要注册，第三方相关 :接收Push消息（注册、Push消息、Push连接状态）广播，
                 此receiver类需要开发者自己创建并继承com.huawei.hms.support.api.push.PushReceiver类，
-                参考示例代码中的类：com.huawei.hmsagent.HuaweiPushRevicer-->
+                参考示例代码中的类：com.huawei.hmsagent.HuaweiPushRevicer
+        -->
         <receiver android:name=".receiver.HMSPushReceiver">
             <intent-filter>
+
                 <!-- 必须,用于接收 TOKEN -->
-                <action android:name="com.huawei.android.push.intent.REGISTRATION"/>
+                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
                 <!-- 必须，用于接收消息 -->
-                <action android:name="com.huawei.android.push.intent.RECEIVE"/>
+                <action android:name="com.huawei.android.push.intent.RECEIVE" />
                 <!-- 可选，用于点击通知栏或通知栏上的按钮后触发 onEvent 回调 -->
-                <action android:name="com.huawei.android.push.intent.CLICK"/>
+                <action android:name="com.huawei.android.push.intent.CLICK" />
                 <!-- 可选，查看 PUSH 通道是否连接，不查看则不需要 -->
-                <action android:name="com.huawei.intent.action.PUSH_STATE"/>
+                <action android:name="com.huawei.intent.action.PUSH_STATE" />
             </intent-filter>
         </receiver>
         <!-- huawei push end -->
+
 
         <!-- 设置环信应用的appkey -->
         <meta-data
@@ -439,10 +444,12 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="3ecea51f560650b1ed8a4b99808f52e8" />
 
+        <activity android:name=".live.UserActivity"></activity>
     </application>
 
 </manifest>

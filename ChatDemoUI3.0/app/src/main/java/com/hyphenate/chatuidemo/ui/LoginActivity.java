@@ -14,6 +14,7 @@
 package com.hyphenate.chatuidemo.ui;
 
 import android.app.ProgressDialog;
+import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
@@ -37,6 +38,7 @@ import com.hyphenate.chatuidemo.DemoHelper;
 import com.hyphenate.chatuidemo.HMSPushHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.db.DemoDBManager;
+import com.hyphenate.chatuidemo.live.UserActivity;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 
 /**
@@ -120,7 +122,8 @@ public class LoginActivity extends BaseActivity {
 		}
 		String currentUsername = usernameEditText.getText().toString().trim();
 		String currentPassword = passwordEditText.getText().toString().trim();
-
+		currentUsername = "A1";
+		currentPassword = "Qq11111111";
 		if (TextUtils.isEmpty(currentUsername)) {
 			Toast.makeText(this, R.string.User_name_cannot_be_empty, Toast.LENGTH_SHORT).show();
 			return;
@@ -180,7 +183,7 @@ public class LoginActivity extends BaseActivity {
 				DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
 
 				Intent intent = new Intent(LoginActivity.this,
-						MainActivity.class);
+						UserActivity.class);
 				startActivity(intent);
 
 				finish();

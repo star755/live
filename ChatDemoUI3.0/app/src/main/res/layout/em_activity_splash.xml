@@ -2,24 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/splash_root"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/em_splash" >
+    android:layout_height="fill_parent" >
 
     <ImageView
         android:id="@+id/iv_splash_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/em_splash_logo" />
+        android:src="@drawable/em_splash_logo"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_splash_logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dip"
-        android:text="@string/app_slogon"
-        android:textColor="#fff"
+        android:layout_centerInParent="true"
+        android:text="演示系统"
         android:textSize="30sp" />
 
     <LinearLayout
@@ -28,16 +26,15 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dip"
         android:gravity="center_horizontal"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textColor="#fff"
-            android:textSize="20sp"
-            android:typeface="normal" >
-        </TextView>
+            android:typeface="normal"></TextView>
 
         <TextView
             android:id="@+id/tv_version"
@@ -47,8 +44,7 @@
             android:text="2.1.7"
             android:textColor="#fff"
             android:textSize="20sp"
-            tools:ignore="HardcodedText">
-        </TextView>
+            tools:ignore="HardcodedText"></TextView>
     </LinearLayout>
 
 </RelativeLayout>
