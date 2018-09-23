@@ -14,18 +14,31 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 import com.bumptech.glide.Glide;
+import com.easemob.livedemo.DemoApplication;
 import com.easemob.livedemo.DemoConstants;
 import com.easemob.livedemo.R;
 import com.easemob.livedemo.ThreadPoolManager;
+import com.easemob.livedemo.custom.MESSAGE;
 import com.easemob.livedemo.data.TestAvatarRepository;
 import com.easemob.livedemo.data.model.LiveRoom;
+import com.easemob.livedemo.data.restapi.LiveException;
+import com.easemob.livedemo.data.restapi.LiveManager;
+import com.easemob.livedemo.net.Api;
+import com.easemob.livedemo.net.bean.UserModule;
+import com.easemob.livedemo.net.response.BaseResponse;
+import com.easemob.livedemo.net.service.DemoUser;
 import com.easemob.livedemo.ui.widget.PeriscopeLayout;
 import com.easemob.livedemo.ui.widget.RoomMessagesView;
 import com.easemob.livedemo.utils.Utils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMChatRoomChangeListener;
 import com.hyphenate.EMMessageListener;
+import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
@@ -90,10 +103,17 @@ public abstract class LiveBaseActivity extends BaseActivity {
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         liveRoom = (LiveRoom) getIntent().getSerializableExtra("liveroom");
+        onActivityCreate(savedInstanceState);
+        initRoom(liveRoom,savedInstanceState);
+    }
+
+    private void initRoom(LiveRoom liveRoom, Bundle savedInstanceState) {
+        if(liveRoom==null){
+            return;
+        }
         liveId = liveRoom.getId();
         chatroomId = liveRoom.getChatroomId();
         anchorId = liveRoom.getAnchorId();
-        onActivityCreate(savedInstanceState);
         usernameView.setText(anchorId);
         liveIdView.setText(liveId);
         audienceNumView.setText(String.valueOf(liveRoom.getAudienceNum()));
@@ -103,6 +123,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
     protected Handler handler = new Handler();
 
     protected abstract void onActivityCreate(@Nullable Bundle savedInstanceState);
+    protected abstract void onVideoOK();
 
 
     protected void showPraise(final int count){
@@ -209,6 +230,10 @@ public abstract class LiveBaseActivity extends BaseActivity {
     }
 
 
+    private EMChatRoom room;
+
+
+
     EMMessageListener msgListener = new EMMessageListener() {
 
         @Override public void onMessageReceived(List<EMMessage> messages) {
@@ -247,10 +272,33 @@ public abstract class LiveBaseActivity extends BaseActivity {
 
         @Override public void onCmdMessageReceived(List<EMMessage> messages) {
             EMMessage message = messages.get(messages.size() - 1);
-            if (DemoConstants.CMD_GIFT.equals(((EMCmdMessageBody) message.getBody()).action())) {
+            String action = ((EMCmdMessageBody) message.getBody()).action();
+            if (DemoConstants.CMD_GIFT.equals(action)) {
                 //showLeftGiftView(message.getFrom());
-            } else if(DemoConstants.CMD_PRAISE.equals(((EMCmdMessageBody) message.getBody()).action())) {
+            } else if(DemoConstants.CMD_PRAISE.equals(action)) {
                 showPraise(message.getIntAttribute(DemoConstants.EXTRA_PRAISE_COUNT, 1));
+            } else if(action.startsWith(MESSAGE.JION_ROOM)){
+                String roomid = action.split(":")[1];
+                try {
+                    liveRoom =  LiveManager.getInstance().getLiveRoomDetails(roomid);
+                } catch (LiveException e) {
+                    e.printStackTrace();
+                }
+                EMClient.getInstance()
+                        .chatroomManager()
+                        .joinChatRoom(chatroomId, new EMValueCallBack<EMChatRoom>() {
+                            @Override
+                            public void onSuccess(EMChatRoom value) {
+                                LiveBaseActivity.this.room = value;
+                                bisBusy();
+                                sendokMsg();
+                            }
+
+                            @Override
+                            public void onError(int error, String errorMsg) {
+
+                            }
+                        });
             }
         }
 
@@ -365,6 +413,49 @@ public abstract class LiveBaseActivity extends BaseActivity {
             }
         }, 200);
     }
+
+
+    private void sendokMsg() {
+        EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
+        String action = MESSAGE.JION_ROOM_REPLAY;//action可以自定义
+        EMCmdMessageBody cmdBody = new EMCmdMessageBody(action);
+        String toUsername = DemoApplication.getInstance().getOther().name;//发送给某个人
+        cmdMsg.setTo(toUsername);
+        cmdMsg.addBody(cmdBody);
+        EMClient.getInstance().chatManager().sendMessage(cmdMsg);
+        startPlay();
+    }
+
+    private void startPlay() {
+        initRoom(liveRoom,null);
+    }
+
+    private void bisBusy() {
+        UserModule b = DemoApplication.getInstance().getmUser();
+        b.Flag = UserModule.STATUS_BUSY;
+        final DemoUser user = Api.create(DemoUser.class);
+        user.update(b)
+                .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseResponse<UserModule>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse<UserModule> userModuleBaseResponse) {
+                        DemoApplication.getInstance().setmUser((UserModule) userModuleBaseResponse.Data);
+                    }
+                });
+    }
+
+
 
     private LinearLayoutManager layoutManager;
     void showMemberList() {

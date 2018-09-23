@@ -53,13 +53,11 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
         likeImageView.setVisibility(View.VISIBLE);
 
 
-        Glide.with(this).load(liveRoom.getCover()).placeholder(R.color.placeholder).into(coverView);
-
         mVideoView = (UVideoView) findViewById(R.id.videoview);
 
-        connect();
     }
     private void connect(){
+        Glide.with(this).load(liveRoom.getCover()).placeholder(R.color.placeholder).into(coverView);
         connectChatServer();
     }
 
@@ -120,6 +118,11 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
                         showLongToast("加入聊天室失败: " +s);
                     }
                 });
+    }
+
+    @Override
+    protected void onVideoOK() {
+        connect();
     }
 
     private void connectLiveStream(){

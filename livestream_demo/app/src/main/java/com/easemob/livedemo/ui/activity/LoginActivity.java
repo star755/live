@@ -18,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.easemob.livedemo.DemoApplication;
 import com.easemob.livedemo.R;
@@ -52,10 +53,6 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (EMClient.getInstance().isLoggedInBefore()) {
-            gotoSuccess();
-            return;
-        }
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -74,6 +71,10 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
+        if (EMClient.getInstance().isLoggedInBefore()) {
+            gotoSuccess();
+            return;
+        }
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -99,7 +100,7 @@ public class LoginActivity extends BaseActivity {
     private void gotoSuccess() {
         DemoApplication.getInstance().setCurrentUserName(mEmailView.getText().toString());
         DemoUser user = Api.create(DemoUser.class);
-        user.login(new LoginModule())
+        user.login(new LoginModule(mEmailView.getText().toString(),mPasswordView.getText().toString()))
                 .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BaseResponse<UserModule>>() {
@@ -115,6 +116,11 @@ public class LoginActivity extends BaseActivity {
 
                     @Override
                     public void onNext(BaseResponse<UserModule> userModuleBaseResponse) {
+                        if(userModuleBaseResponse == null || userModuleBaseResponse.Code!=0){
+                            Toast.makeText(LoginActivity.this,"登录失败",Toast.LENGTH_SHORT);
+                            return;
+                        }
+                        DemoApplication.getInstance().setmUser(userModuleBaseResponse.Data);
                         startActivity(new Intent(LoginActivity.this, UserActivity.class));
                         finish();
                     }

@@ -2,11 +2,15 @@ package com.easemob.livedemo;
 
 import android.app.Application;
 import android.content.Intent;
+
+import com.easemob.livedemo.data.model.LiveRoom;
+import com.easemob.livedemo.net.bean.UserModule;
 import com.easemob.livedemo.ui.activity.MainActivity;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.controller.EaseUI;
+import com.ucloud.ulive.UEasyStreaming;
 import com.ucloud.ulive.UStreamingContext;
 
 /**
@@ -15,6 +19,8 @@ import com.ucloud.ulive.UStreamingContext;
 public class DemoApplication extends Application{
 
   private static DemoApplication instance;
+  private UserModule other;
+  private LiveRoom room;
 
   public String getCurrentUserName() {
     return currentUserName;
@@ -24,16 +30,27 @@ public class DemoApplication extends Application{
     this.currentUserName = currentUserName;
   }
 
+  private UserModule mUser;
+
+  public UserModule getmUser() {
+    return mUser;
+  }
+
+  public void setmUser(UserModule mUser) {
+    this.mUser = mUser;
+  }
+
+  public static void setInstance(DemoApplication instance) {
+    DemoApplication.instance = instance;
+  }
+
   private String currentUserName;
 
   @Override public void onCreate() {
     super.onCreate();
     instance = this;
 
-
     initChatSdk();
-
-    //UEasyStreaming.initStreaming("publish3-key");
 
     UStreamingContext.init(getApplicationContext(), "publish3-key");
   }
@@ -69,4 +86,19 @@ public class DemoApplication extends Application{
     });
   }
 
+  public void setOther(UserModule other) {
+    this.other = other;
+  }
+
+  public UserModule getOther() {
+    return other;
+  }
+
+  public void setRoom(LiveRoom room) {
+    this.room = room;
+  }
+
+  public LiveRoom getRoom() {
+    return room;
+  }
 }

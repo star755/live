@@ -76,6 +76,11 @@ public class LiveAnchorActivity extends LiveBaseActivity {
         startLive();
     }
 
+    @Override
+    protected void onVideoOK() {
+
+    }
+
     public void initLiveEnv() {
         mAVOption = new AVOption();
         mAVOption.streamUrl = liveRoom.getLivePushUrl();
