@@ -1,6 +1,8 @@
 package com.easemob.livedemo.ui.activity;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -71,7 +73,11 @@ public class BaseActivity extends AppCompatActivity{
     protected boolean allowBack = true;
 
     private ProgressDialog progressDialog;
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     protected void showProgressDialog(String message){
+        if(isFinishing() || isDestroyed()){
+            return;
+        }
         if(progressDialog == null){
             progressDialog = new ProgressDialog(this);
         }

@@ -110,6 +110,7 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
                         }
                         DemoApplication.getInstance().setmUser(userModuleBaseResponse.Data);
                         startActivity(new Intent(UserActivity.this, LiveAudienceActivity.class));
+                        finish();
                     }
                 });
     }
@@ -144,9 +145,11 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
                         userToadd = b.name;
                         //-------设置为默认的聊天室-------------------
                         DemoApplication.getInstance().setOther(b);
+                        dismissProgressDialog();
                         Intent intent = new Intent(UserActivity.this, LiveAnchorActivity.class);
                         intent.putExtra("liveroom", DemoApplication.getInstance().getRoom());
                         startActivity(intent);
+                        finish();
 //                        new Thread(new Runnable() {
 //                            @Override
 //                            public void run() {
@@ -292,6 +295,7 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
                             Intent intent = new Intent(UserActivity.this, LiveAnchorActivity.class);
                             intent.putExtra("liveroom", DemoApplication.getInstance().getRoom());
                             startActivity(intent);
+                            finish();
                         }
                     });
                 } catch (HyphenateException e) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -102,6 +103,10 @@ public abstract class LiveBaseActivity extends BaseActivity {
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(false);
+        }
         liveRoom = (LiveRoom) getIntent().getSerializableExtra("liveroom");
         onActivityCreate(savedInstanceState);
         initRoom(liveRoom,savedInstanceState);
@@ -347,20 +352,44 @@ public abstract class LiveBaseActivity extends BaseActivity {
                         });
                     }
 
+                    @Override
+                    public void onVoiceMessageSend(String filePath, int length) {
+                        EMMessage message = EMMessage.createVoiceSendMessage(filePath,length, chatroomId);
+                        //if (messageView.isBarrageShow) {
+                        //    message.setAttribute(DemoConstants.EXTRA_IS_BARRAGE_MSG, true);
+                        //    barrageLayout.addBarrage(content,
+                        //            EMClient.getInstance().getCurrentUser());
+                        //}
+                        message.setChatType(EMMessage.ChatType.ChatRoom);
+                        EMClient.getInstance().chatManager().sendMessage(message);
+                        message.setMessageStatusCallback(new EMCallBack() {
+                            @Override public void onSuccess() {
+                                //刷新消息列表
+                                messageView.refreshSelectLast();
+                            }
+
+                            @Override public void onError(int i, String s) {
+                                showToast("消息发送失败！");
+                            }
+
+                            @Override public void onProgress(int i, String s) {
+
+                            }
+                        });
+
+                    }
+
                     @Override public void onItemClickListener(final EMMessage message) {
                         //if(message.getFrom().equals(EMClient.getInstance().getCurrentUser())){
                         //    return;
                         //}
-                        String clickUsername = message.getFrom();
-                        showUserDetailsDialog(clickUsername);
                     }
 
                     @Override public void onHiderBottomBar() {
-                        bottomBar.setVisibility(View.VISIBLE);
                     }
                 });
                 messageView.setVisibility(View.VISIBLE);
-                bottomBar.setVisibility(View.VISIBLE);
+                //bottomBar.setVisibility(View.VISIBLE);
                 if(!chatroom.getAdminList().contains(EMClient.getInstance().getCurrentUser())
                         && !chatroom.getOwner().equals(EMClient.getInstance().getCurrentUser())) {
                     userManagerView.setVisibility(View.INVISIBLE);
@@ -403,8 +432,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
     }
 
     private void showInputView() {
-        bottomBar.setVisibility(View.INVISIBLE);
-        messageView.setShowInputView(true);
+        //bottomBar.setVisibility(View.INVISIBLE);
         messageView.getInputView().requestFocus();
         messageView.getInputView().requestFocusFromTouch();
         handler.postDelayed(new Runnable() {

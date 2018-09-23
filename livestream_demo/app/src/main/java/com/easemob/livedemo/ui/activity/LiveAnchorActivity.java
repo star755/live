@@ -46,7 +46,7 @@ public class LiveAnchorActivity extends LiveBaseActivity {
 
     public static final int COUNTDOWN_DELAY = 1000;
 
-    public static final int COUNTDOWN_START_INDEX = 3;
+    public static final int COUNTDOWN_START_INDEX = 1;
     public static final int COUNTDOWN_END_INDEX = 1;
     protected boolean isShutDownCountdown = false;
     //private LiveSettings mSettings;
@@ -218,7 +218,7 @@ public class LiveAnchorActivity extends LiveBaseActivity {
                                         showToast("加入聊天室失败");
                                     }
                                 });
-                        showToast("直播开始！");
+                        //showToast("直播开始！");
                         //mEasyStreaming.startRecording();
                         cameraView.startRecording();
                         isStarted = true;
