@@ -253,7 +253,6 @@ public class LiveAnchorActivity extends LiveBaseActivity {
         if (isStarted) {
             cameraView.startRecording();
         }
-        if (isMessageListInited) messageView.refresh();
         EaseUI.getInstance().pushActivity(this);
         // register the event listener when enter the foreground
         EMClient.getInstance().chatManager().addMessageListener(msgListener);

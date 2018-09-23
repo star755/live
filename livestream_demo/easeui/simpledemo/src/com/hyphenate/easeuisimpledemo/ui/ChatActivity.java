@@ -23,7 +23,7 @@ public class ChatActivity extends EaseBaseActivity{
         chatFragment = new EaseChatFragment();
         //传入参数
         chatFragment.setArguments(getIntent().getExtras());
-        getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.message_list_container, chatFragment).commit();
         
     }
     

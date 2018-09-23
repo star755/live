@@ -563,6 +563,14 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         });
     }
 
+    public void refresh(){
+        messageList.refresh();
+    }
+
+
+    public void refreshLast(){
+        messageList.refreshSelectLast();
+    }
     // implement methods in EMMessageListener
     @Override
     public void onMessageReceived(List<EMMessage> messages) {

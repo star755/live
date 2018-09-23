@@ -149,15 +149,12 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
 
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         //if(getWindow().getAttributes().softInputMode == WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE){
-            messageView.getInputView().requestFocus();
-            messageView.getInputView().requestFocusFromTouch();
         //}
     }
 
     @Override protected void onResume() {
         super.onResume();
         mVideoView.onResume();
-        if (isMessageListInited) messageView.refresh();
         EaseUI.getInstance().pushActivity(this);
         // register the event listener when enter the foreground
         EMClient.getInstance().chatManager().addMessageListener(msgListener);

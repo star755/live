@@ -325,69 +325,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
     protected void onMessageListInit() {
         runOnUiThread(new Runnable() {
             @Override public void run() {
-                messageView.init(chatroomId);
-                messageView.setMessageViewListener(new RoomMessagesView.MessageViewListener() {
-                    @Override public void onMessageSend(String content) {
-                        EMMessage message = EMMessage.createTxtSendMessage(content, chatroomId);
-                        //if (messageView.isBarrageShow) {
-                        //    message.setAttribute(DemoConstants.EXTRA_IS_BARRAGE_MSG, true);
-                        //    barrageLayout.addBarrage(content,
-                        //            EMClient.getInstance().getCurrentUser());
-                        //}
-                        message.setChatType(EMMessage.ChatType.ChatRoom);
-                        EMClient.getInstance().chatManager().sendMessage(message);
-                        message.setMessageStatusCallback(new EMCallBack() {
-                            @Override public void onSuccess() {
-                                //刷新消息列表
-                                messageView.refreshSelectLast();
-                            }
-
-                            @Override public void onError(int i, String s) {
-                                showToast("消息发送失败！");
-                            }
-
-                            @Override public void onProgress(int i, String s) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onVoiceMessageSend(String filePath, int length) {
-                        EMMessage message = EMMessage.createVoiceSendMessage(filePath,length, chatroomId);
-                        //if (messageView.isBarrageShow) {
-                        //    message.setAttribute(DemoConstants.EXTRA_IS_BARRAGE_MSG, true);
-                        //    barrageLayout.addBarrage(content,
-                        //            EMClient.getInstance().getCurrentUser());
-                        //}
-                        message.setChatType(EMMessage.ChatType.ChatRoom);
-                        EMClient.getInstance().chatManager().sendMessage(message);
-                        message.setMessageStatusCallback(new EMCallBack() {
-                            @Override public void onSuccess() {
-                                //刷新消息列表
-                                messageView.refreshSelectLast();
-                            }
-
-                            @Override public void onError(int i, String s) {
-                                showToast("消息发送失败！");
-                            }
-
-                            @Override public void onProgress(int i, String s) {
-
-                            }
-                        });
-
-                    }
-
-                    @Override public void onItemClickListener(final EMMessage message) {
-                        //if(message.getFrom().equals(EMClient.getInstance().getCurrentUser())){
-                        //    return;
-                        //}
-                    }
-
-                    @Override public void onHiderBottomBar() {
-                    }
-                });
+                messageView.init(LiveBaseActivity.this, chatroomId);
                 messageView.setVisibility(View.VISIBLE);
                 //bottomBar.setVisibility(View.VISIBLE);
                 if(!chatroom.getAdminList().contains(EMClient.getInstance().getCurrentUser())
@@ -433,13 +371,6 @@ public abstract class LiveBaseActivity extends BaseActivity {
 
     private void showInputView() {
         //bottomBar.setVisibility(View.INVISIBLE);
-        messageView.getInputView().requestFocus();
-        messageView.getInputView().requestFocusFromTouch();
-        handler.postDelayed(new Runnable() {
-            @Override public void run() {
-                Utils.showKeyboard(messageView.getInputView());
-            }
-        }, 200);
     }
 
 
