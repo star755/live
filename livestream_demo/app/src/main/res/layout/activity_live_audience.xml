@@ -8,24 +8,60 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#777"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/r_blist"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"></android.support.v7.widget.RecyclerView>
+            android:layout_weight="2"
+            android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/r_clist"
+            <TextView
+                android:id="@+id/tv_list1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/btn_white_normal" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/r_1list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/btn_white_normal"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"></android.support.v7.widget.RecyclerView>
+            android:layout_weight="2"
+            android:layout_marginLeft="1dp"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_list2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/btn_white_normal" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/r_2list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/btn_white_normal"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4">
+            android:layout_marginLeft="1dp"
+            android:layout_weight="4"
+            android:background="@color/btn_white_normal">
 
 
             <include
@@ -36,8 +72,18 @@
                 layout="@layout/room_user_list_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/toolbar" />
+                android:layout_below="@+id/toolbar"
+                android:visibility="gone" />
 
+
+            <TextView
+                android:id="@+id/title_chat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="聊天"
+                android:gravity="center"
+                android:textColor="@color/btn_white_normal" />
             <!-- <ImageButton
                  android:id="@+id/img_bt_close_record"
                  android:onClick="close"
@@ -48,6 +94,7 @@
                  android:background="@drawable/live_selecter_room_close_button" />-->
             <com.easemob.livedemo.ui.widget.RoomMessagesView
                 android:id="@+id/message_view"
+                android:layout_below="@+id/title_chat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -79,7 +126,9 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
             android:layout_weight="4"
+            android:background="@color/btn_white_normal"
             android:orientation="vertical">
 
             <com.baidu.mapapi.map.MapView
@@ -89,8 +138,14 @@
                 android:layout_weight="2"
                 android:background="#fff" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#777" />
+
             <com.ucloud.uvod.widget.UVideoView
                 android:id="@+id/videoview"
+
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2" />
@@ -100,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="功能"/>
+                android:text="功能" />
         </LinearLayout>
 
     </LinearLayout>

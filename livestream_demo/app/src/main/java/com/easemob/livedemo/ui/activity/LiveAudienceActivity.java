@@ -3,6 +3,8 @@ package com.easemob.livedemo.ui.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -13,7 +15,12 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 import com.bumptech.glide.Glide;
+import com.easemob.livedemo.DemoApplication;
 import com.easemob.livedemo.DemoConstants;
 import com.easemob.livedemo.R;
 import com.easemob.livedemo.ThreadPoolManager;
@@ -21,6 +28,11 @@ import com.easemob.livedemo.data.restapi.LiveManager;
 import com.easemob.livedemo.data.restapi.LiveException;
 import com.easemob.livedemo.data.restapi.model.LiveStatusModule;
 import com.easemob.livedemo.data.restapi.model.StatisticsType;
+import com.easemob.livedemo.net.Api;
+import com.easemob.livedemo.net.bean.UserModule;
+import com.easemob.livedemo.net.response.BaseResponse;
+import com.easemob.livedemo.net.service.DemoUserList;
+import com.easemob.livedemo.ui.activity.adapter.UserAdapter;
 import com.hyphenate.EMError;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMChatRoom;
@@ -34,8 +46,10 @@ import com.ucloud.uvod.UPlayerStateListener;
 import com.ucloud.uvod.widget.UVideoView;
 
 import java.security.spec.ECField;
+import java.util.List;
 import java.util.Random;
 
+import static android.support.v7.widget.LinearLayoutManager.VERTICAL;
 import static android.view.View.GONE;
 
 public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerStateListener {
@@ -49,16 +63,36 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
     @BindView(R.id.loading_text) TextView loadingText;
     @BindView(R.id.cover_image) ImageView coverView;
 
-    @Override protected void onActivityCreate(@Nullable Bundle savedInstanceState) {
+
+    @BindView(R.id.r_1list)
+    RecyclerView mFirstRv;
+    @BindView(R.id.r_2list)
+    RecyclerView mSecRv;
+
+
+    @BindView(R.id.tv_list1)
+    TextView mTvList1;
+
+
+    @BindView(R.id.tv_list2)
+    TextView mTvList2;
+
+    @Override
+    protected void onActivityCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_live_audience);
         ButterKnife.bind(this);
         switchCameraView.setVisibility(View.INVISIBLE);
         likeImageView.setVisibility(View.VISIBLE);
         mVideoView = (UVideoView) findViewById(R.id.videoview);
         EMClient.getInstance().chatManager().addMessageListener(msgListener);
+        debug();
         startChat();
-
     }
+
+    private void debug() {
+        chatroomId = "61095445331969";
+    }
+
     private void connect(){
         Glide.with(this).load(liveRoom.getCover()).placeholder(R.color.placeholder).into(coverView);
         connectChatServer();
@@ -132,7 +166,52 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
     void startChat() {
         loadingLayout.setVisibility(GONE);
         joinChatRoom();
+        loadData();
     }
+
+    private void loadData() {
+        if(user.isB()){
+            mTvList1.setText("B列表");
+            loadUsers(mFirstRv,UserModule.B);
+            mTvList2.setText("C列表");
+            loadUsers(mSecRv,UserModule.C);
+        }else if(user.isC()){
+            mTvList1.setText("C列表");
+            loadUsers(mFirstRv,UserModule.C);
+            mTvList2.setText("E列表");
+           loadUsers(mSecRv,UserModule.E);
+        }
+    }
+
+    private void loadUsers(final RecyclerView view,int type){
+        final DemoUserList user = Api.create(DemoUserList.class);
+        user.get(type)
+                .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseResponse<List<UserModule>>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse<List<UserModule>> userModuleBaseResponse) {
+                        if (userModuleBaseResponse == null || userModuleBaseResponse.Data == null || userModuleBaseResponse.Data.size() == 0) {
+                            return;
+                        }
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(LiveAudienceActivity.this);
+                        layoutManager.setOrientation(VERTICAL);
+                        UserAdapter adapter = new UserAdapter(userModuleBaseResponse.Data,LiveAudienceActivity.this);
+                        view.setAdapter(adapter);
+                    }
+                });
+    }
+
 
     private void connectLiveStream(){
         profile = new UMediaProfile();

@@ -5,7 +5,9 @@ import java.util.Date;
 public class UserModule {
     //0离线9在线2忙碌3观察
     public static final String STATUS_BUSY = "2";
+    public static final String STATUS_OFFLINE = "0";
     public static final String STATUS_ONLINE = "9";
+    public static final String STATUS_VIEW = "3";
 
     public static int A = 1;
     public static int B = 2;
@@ -22,4 +24,13 @@ public class UserModule {
     public String roomid;
     public double longitude;
     public double latitude;
+
+    public boolean isB(){
+        return usertype == B;
+    }
+
+
+    public boolean isC(){
+        return  usertype == C;
+    }
 }

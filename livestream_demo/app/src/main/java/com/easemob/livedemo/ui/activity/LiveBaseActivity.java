@@ -95,7 +95,6 @@ public abstract class LiveBaseActivity extends BaseActivity {
     protected int watchedCount;
     protected int membersCount;
 
-
     protected String chatroomId;
     /**
      * ucloud直播id
@@ -111,6 +110,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
     protected EMChatRoom chatroom;
     private static final int MAX_SIZE = 10;
     LinkedList<String> memberList = new LinkedList<>();
+    public UserModule user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,6 +119,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(false);
         }
+        user= DemoApplication.getInstance().getmUser();
         liveRoom = (LiveRoom) getIntent().getSerializableExtra("liveroom");
         onActivityCreate(savedInstanceState);
         initRoom(liveRoom, savedInstanceState);

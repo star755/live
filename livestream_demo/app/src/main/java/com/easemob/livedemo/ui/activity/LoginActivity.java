@@ -121,7 +121,7 @@ public class LoginActivity extends BaseActivity {
                             return;
                         }
                         DemoApplication.getInstance().setmUser(userModuleBaseResponse.Data);
-                        startActivity(new Intent(LoginActivity.this, UserActivity.class));
+                        startActivity(new Intent(LoginActivity.this, LiveAudienceActivity.class));
                         finish();
                     }
                 });
