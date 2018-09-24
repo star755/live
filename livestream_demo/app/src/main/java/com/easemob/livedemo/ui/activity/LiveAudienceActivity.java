@@ -83,8 +83,9 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
         likeImageView.setVisibility(View.VISIBLE);
         mVideoView = (UVideoView) findViewById(R.id.videoview);
         EMClient.getInstance().chatManager().addMessageListener(msgListener);
-        debug();
-        startChat();
+
+        //debug();
+        //startChat();
     }
 
     private void debug() {

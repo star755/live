@@ -121,7 +121,22 @@ public class LoginActivity extends BaseActivity {
                             return;
                         }
                         DemoApplication.getInstance().setmUser(userModuleBaseResponse.Data);
-                        startActivity(new Intent(LoginActivity.this, LiveAudienceActivity.class));
+                        UserModule user = userModuleBaseResponse.Data;
+
+                        //根据获得的用户信息，判断ABCE类型和离线，上线，忙碌，观察4种状态
+
+                        if (user.status.equals("0")){
+                            //离线进入上线操作
+                            startActivity(new Intent(LoginActivity.this, UserActivity.class));
+                        }else{
+                            //其他状态表示中途断线，直接进入对应页面
+                            if (user.usertype == UserModule.A || user.usertype == UserModule.E){
+                                startActivity(new Intent(LoginActivity.this, LiveAnchorActivity.class));
+                            }else{
+                                startActivity(new Intent(LoginActivity.this, LiveAudienceActivity.class));
+                            }
+
+                        }
                         finish();
                     }
                 });

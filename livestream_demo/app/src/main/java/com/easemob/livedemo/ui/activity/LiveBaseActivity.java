@@ -414,10 +414,10 @@ public abstract class LiveBaseActivity extends BaseActivity {
     protected void bisBusy(boolean value) {
         UserModule b = DemoApplication.getInstance().getmUser();
         if (value) {
-            b.Flag = UserModule.STATUS_BUSY;
+            b.status = UserModule.STATUS_BUSY;
             b.roomid = chatroomId;
         } else {
-            b.Flag = UserModule.STATUS_ONLINE;
+            b.status = UserModule.STATUS_ONLINE;
             b.roomid = "";
         }
         final DemoUser user = Api.create(DemoUser.class);
