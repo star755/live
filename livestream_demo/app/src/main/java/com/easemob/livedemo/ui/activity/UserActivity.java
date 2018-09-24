@@ -238,7 +238,7 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
         //支持单聊和群聊，默认单聊，如果是群聊添加下面这行
         cmdMsg.setChatType(EMMessage.ChatType.GroupChat);
         String toUsername = DemoApplication.getInstance().getOther().name;//发送给某个人
-        EMCmdMessageBody cmdBody = new EMCmdMessageBody(M.buildInviteUser(roomId, "b1"));
+        EMCmdMessageBody cmdBody = new EMCmdMessageBody(M.buildInviteUser(roomId, toUsername));
         cmdMsg.setTo(TO_GROUP);
         cmdMsg.addBody(cmdBody);
         EMClient.getInstance().chatManager().sendMessage(cmdMsg);

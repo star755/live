@@ -52,7 +52,6 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
     @Override protected void onActivityCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_live_audience);
         ButterKnife.bind(this);
-        chatroomId = "61095445331969";
         switchCameraView.setVisibility(View.INVISIBLE);
         likeImageView.setVisibility(View.VISIBLE);
         mVideoView = (UVideoView) findViewById(R.id.videoview);
