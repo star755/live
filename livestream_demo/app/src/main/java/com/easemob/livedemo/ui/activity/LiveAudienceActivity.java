@@ -69,10 +69,8 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
     @BindView(R.id.r_2list)
     RecyclerView mSecRv;
 
-
     @BindView(R.id.tv_list1)
     TextView mTvList1;
-
 
     @BindView(R.id.tv_list2)
     TextView mTvList2;
