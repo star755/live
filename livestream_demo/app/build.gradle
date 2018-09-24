@@ -37,17 +37,17 @@ android {
         }
     }
 
-    productFlavors{
-        A {
-            applicationIdSuffix ".ADE"
-                resValue "string", "app_name", "DEMO A"
-        }
-        BC{
-            applicationIdSuffix ".BC"
-            resValue "string", "app_name", "DEMO BC"
-
-        }
-    }
+//    productFlavors{
+//        A {
+//            applicationIdSuffix ".ADE"
+//                resValue "string", "app_name", "DEMO A"
+//        }
+//        BC{
+//            applicationIdSuffix ".BC"
+//            resValue "string", "app_name", "DEMO BC"
+//
+//        }
+//    }
 }
 
 repositories {
