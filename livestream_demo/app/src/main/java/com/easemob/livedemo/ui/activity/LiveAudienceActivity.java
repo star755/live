@@ -36,6 +36,8 @@ import com.ucloud.uvod.widget.UVideoView;
 import java.security.spec.ECField;
 import java.util.Random;
 
+import static android.view.View.GONE;
+
 public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerStateListener {
 
     String rtmpPlayStreamUrl = "rtmp://vlive3.rtmp.cdn.ucloud.com.cn/ucloud/";
@@ -50,13 +52,12 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
     @Override protected void onActivityCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_live_audience);
         ButterKnife.bind(this);
-
+        chatroomId = "61095445331969";
         switchCameraView.setVisibility(View.INVISIBLE);
         likeImageView.setVisibility(View.VISIBLE);
-
-
         mVideoView = (UVideoView) findViewById(R.id.videoview);
         EMClient.getInstance().chatManager().addMessageListener(msgListener);
+        startChat();
 
     }
     private void connect(){
@@ -99,7 +100,7 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
     }
 
     private void joinChatRoom() {
-        //loadingLayout.setVisibility(View.INVISIBLE);
+        loadingLayout.setVisibility(View.INVISIBLE);
         EMClient.getInstance()
                 .chatroomManager()
                 .joinChatRoom(chatroomId, new EMValueCallBack<EMChatRoom>() {
@@ -126,6 +127,12 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
     @Override
     protected void onVideoOK() {
         connect();
+    }
+
+    @Override
+    void startChat() {
+        loadingLayout.setVisibility(GONE);
+        joinChatRoom();
     }
 
     private void connectLiveStream(){
@@ -189,7 +196,7 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
                     .chatroomManager()
                     .removeChatRoomChangeListener(chatRoomChangeListener);
         }
-
+        bisBusy(false);
         mVideoView.onDestroy();
     }
 

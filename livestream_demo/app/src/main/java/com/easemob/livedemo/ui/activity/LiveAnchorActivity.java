@@ -15,6 +15,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import com.easemob.livedemo.DemoApplication;
 import com.easemob.livedemo.R;
 import com.easemob.livedemo.data.restapi.LiveManager;
 import com.easemob.livedemo.data.restapi.LiveException;
@@ -71,13 +73,18 @@ public class LiveAnchorActivity extends LiveBaseActivity {
     @Override protected void onActivityCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_live_anchor);
         ButterKnife.bind(this);
+        chatroomId = DemoApplication.getInstance().getmUser().roomid;
         initLiveEnv();
-
         startLive();
     }
 
     @Override
     protected void onVideoOK() {
+
+    }
+
+    @Override
+    void startChat() {
 
     }
 

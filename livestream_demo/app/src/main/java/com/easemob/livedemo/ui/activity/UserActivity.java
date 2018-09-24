@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -47,6 +48,7 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        EMClient.getInstance().chatManager().addMessageListener(this);
         String user = DemoApplication.getInstance().getCurrentUserName();
         Button butn = (Button) findViewById(R.id.btn_click);
         if (user.startsWith("A")) {
@@ -197,16 +199,12 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
     @Override
     protected void onResume() {
         super.onResume();
-        EMClient.getInstance().chatManager().addMessageListener(this);
-        EMClient.getInstance().contactManager().setContactListener(listener);
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        EMClient.getInstance().chatManager().removeMessageListener(this);
-        EMClient.getInstance().contactManager().removeContactListener(listener);
     }
 
     private void changeUserRoom(int id) {
@@ -240,10 +238,11 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
         //支持单聊和群聊，默认单聊，如果是群聊添加下面这行
         cmdMsg.setChatType(EMMessage.ChatType.GroupChat);
         String toUsername = DemoApplication.getInstance().getOther().name;//发送给某个人
-        EMCmdMessageBody cmdBody = new EMCmdMessageBody(M.buildInviteUser(roomId, toUsername));
+        EMCmdMessageBody cmdBody = new EMCmdMessageBody(M.buildInviteUser(roomId, "b1"));
         cmdMsg.setTo(TO_GROUP);
         cmdMsg.addBody(cmdBody);
         EMClient.getInstance().chatManager().sendMessage(cmdMsg);
+        Log.v("asdf","inviteToLiveChat");
     }
 
 
@@ -276,7 +275,10 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
 
     @Override
     public void onMessageReceived(List<EMMessage> messages) {
-
+        for (EMMessage ms :
+                messages) {
+            Log.v("asfd",ms.toString() );
+        }
     }
 
     @Override
@@ -284,22 +286,26 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
         for (EMMessage ms :
                 messages) {
             String action = ((EMCmdMessageBody) ms.getBody()).action();
+            Log.v("asdf",action);
             if (action.startsWith(M.JION_ROOM_REPLAY)) {
                 //b也加入了聊天室
                 //让B成为管理员
-                try {
-                    EMChatRoom chatRoom = EMClient.getInstance().chatroomManager().addChatRoomAdmin(
-                            DemoApplication.getInstance().getRoom().getChatroomId(),
-                            DemoApplication.getInstance().getOther().name);
+//                try {
+//                    EMChatRoom chatRoom = EMClient.getInstance().chatroomManager().addChatRoomAdmin(
+//                            DemoApplication.getInstance().getRoom().getChatroomId(),
+//                            DemoApplication.getInstance().getOther().name);
+                M.JoinRoom room = M.parseInviteUser(action);
+                if(room.toUser.equalsIgnoreCase(DemoApplication.getInstance().getCurrentUserName())) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             toA();
                         }
                     });
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
                 }
+//                } catch (HyphenateException e) {
+//                    e.printStackTrace();
+//                }
             }
         }
     }
@@ -332,7 +338,7 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        EMClient.getInstance().contactManager().removeContactListener(listener);
     }
 
 

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
@@ -117,7 +118,8 @@ public final class EaseUI {
         
         initNotifier();
         registerMessageListener();
-        
+
+        SDKInitializer.initialize(context);
         if(settingsProvider == null){
             settingsProvider = new DefaultSettingsProvider();
         }

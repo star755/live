@@ -181,6 +181,8 @@ public class LoginActivity extends BaseActivity {
 
                 @Override
                 public void onError(int i, final String s) {
+                    if(i==200){
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

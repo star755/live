@@ -29,6 +29,7 @@ import com.easemob.livedemo.ThreadPoolManager;
 import com.easemob.livedemo.custom.M;
 import com.easemob.livedemo.data.TestAvatarRepository;
 import com.easemob.livedemo.data.model.LiveRoom;
+import com.easemob.livedemo.data.model.User;
 import com.easemob.livedemo.data.restapi.LiveException;
 import com.easemob.livedemo.data.restapi.LiveManager;
 import com.easemob.livedemo.net.Api;
@@ -51,6 +52,8 @@ import com.hyphenate.util.EMLog;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.easemob.livedemo.custom.M.TO_GROUP;
 
 /**
  * Created by wei on 2016/6/12.
@@ -139,7 +142,6 @@ public abstract class LiveBaseActivity extends BaseActivity {
     protected abstract void onActivityCreate(@Nullable Bundle savedInstanceState);
 
     protected abstract void onVideoOK();
-
 
     protected void showPraise(final int count) {
         runOnUiThread(new Runnable() {
@@ -297,7 +299,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
         public void onCmdMessageReceived(List<EMMessage> messages) {
             for (EMMessage message : messages) {
                 String action = ((EMCmdMessageBody) message.getBody()).action();
-                Log.v("asdf",action);
+                Log.v("asdf", "recieve message" + action);
                 if (DemoConstants.CMD_GIFT.equals(action)) {
                     //showLeftGiftView(message.getFrom());
                 } else if (DemoConstants.CMD_PRAISE.equals(action)) {
@@ -308,28 +310,11 @@ public abstract class LiveBaseActivity extends BaseActivity {
                         return;
                     }
                     chatroomId = room.roomId;
-//                try {
-//                    liveRoom =  LiveManager.getInstance().getLiveRoomDetails(roomid);
-//                } catch (LiveException e) {
-//                    e.printStackTrace();
-//                }
                     String fromUser = message.getFrom();
                     DemoApplication.getInstance().setOtherUserName(fromUser);
-                    EMClient.getInstance()
-                            .chatroomManager()
-                            .joinChatRoom(chatroomId, new EMValueCallBack<EMChatRoom>() {
-                                @Override
-                                public void onSuccess(EMChatRoom value) {
-                                    LiveBaseActivity.this.room = value;
-                                    bisBusy();
-                                    sendokMsg();
-                                }
-
-                                @Override
-                                public void onError(int error, String errorMsg) {
-
-                                }
-                            });
+                    bisBusy(true);
+                    sendokMsg();
+                    startChat();
                 }
             }
         }
@@ -351,6 +336,8 @@ public abstract class LiveBaseActivity extends BaseActivity {
             }
         }
     };
+
+    abstract void startChat();
 
     protected void onMessageListInit() {
         runOnUiThread(new Runnable() {
@@ -408,7 +395,9 @@ public abstract class LiveBaseActivity extends BaseActivity {
 
 
     private void sendokMsg() {
+        Log.v("asdf", "send to a confirm");
         EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
+        cmdMsg.setChatType(EMMessage.ChatType.GroupChat);
         String toUsername = DemoApplication.getInstance().getOtherUserName();
         EMCmdMessageBody cmdBody = new EMCmdMessageBody(M.replayInviteUser(toUsername));
         cmdMsg.setTo(M.TO_GROUP);
@@ -421,10 +410,15 @@ public abstract class LiveBaseActivity extends BaseActivity {
         initRoom(liveRoom, null);
     }
 
-    private void bisBusy() {
+    protected void bisBusy(boolean value) {
         UserModule b = DemoApplication.getInstance().getmUser();
-        b.Flag = UserModule.STATUS_BUSY;
-        b.roomid = chatroomId;
+        if (value) {
+            b.Flag = UserModule.STATUS_BUSY;
+            b.roomid = chatroomId;
+        } else {
+            b.Flag = UserModule.STATUS_ONLINE;
+            b.roomid = "";
+        }
         final DemoUser user = Api.create(DemoUser.class);
         user.update(b)
                 .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
