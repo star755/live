@@ -7,7 +7,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        applicationId "com.easemob.livedemo"
+        applicationId "com.mopi.demo"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 2
@@ -34,6 +34,18 @@ android {
             reset()
             include 'x86', 'armeabi-v7a','x86_64'
             universalApk true
+        }
+    }
+
+    productFlavors{
+        A {
+            applicationIdSuffix ".ADE"
+                resValue "string", "app_name", "DEMO A"
+        }
+        BC{
+            applicationIdSuffix ".BC"
+            resValue "string", "app_name", "DEMO BC"
+
         }
     }
 }

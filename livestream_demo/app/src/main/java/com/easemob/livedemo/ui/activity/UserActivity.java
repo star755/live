@@ -3,9 +3,7 @@ package com.easemob.livedemo.ui.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,14 +11,13 @@ import android.widget.Button;
 import com.easemob.livedemo.DemoApplication;
 import com.easemob.livedemo.R;
 import com.easemob.livedemo.ThreadPoolManager;
-import com.easemob.livedemo.custom.MESSAGE;
+import com.easemob.livedemo.custom.M;
 import com.easemob.livedemo.data.model.LiveRoom;
 import com.easemob.livedemo.data.restapi.LiveManager;
 import com.easemob.livedemo.net.Api;
 import com.easemob.livedemo.net.bean.ChangeRoomModule;
 import com.easemob.livedemo.net.bean.UserModule;
 import com.easemob.livedemo.net.response.BaseResponse;
-import com.easemob.livedemo.net.response.LoginModule;
 import com.easemob.livedemo.net.service.DemoUser;
 import com.easemob.livedemo.net.service.DemoUserList;
 import com.hyphenate.EMContactListener;
@@ -29,26 +26,18 @@ import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.cloud.EMCloudOperationCallback;
-import com.hyphenate.cloud.HttpFileManager;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.exceptions.HyphenateException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.easemob.livedemo.custom.M.TO_GROUP;
+
 public class UserActivity extends BaseActivity implements EMMessageListener {
 
-    public static final String CHAT_ROOM = "61095445331969";
 
 
     private MyContactListener listener = new MyContactListener();
@@ -118,6 +107,14 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
     private void startLive() {
         showProgressDialog("正在请求直播...");
         //1.获取在线的B的列表,自动选取一个B
+        //2.向固定的群发消息:通知B来加入 A的聊天室ID 将A的聊天室Id发送给b
+        //3.确认B收到消息之后,开始进入直播聊天界面
+
+
+        //3.设置设置房主为选取的B
+        //4.开始直播
+        //5.直播将流地址发给B
+        //6.B播放流
         final DemoUserList user = Api.create(DemoUserList.class);
         user.get(UserModule.B, UserModule.STATUS_ONLINE)
                 .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
@@ -145,11 +142,11 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
                         userToadd = b.name;
                         //-------设置为默认的聊天室-------------------
                         DemoApplication.getInstance().setOther(b);
-                        dismissProgressDialog();
-                        Intent intent = new Intent(UserActivity.this, LiveAnchorActivity.class);
-                        intent.putExtra("liveroom", DemoApplication.getInstance().getRoom());
-                        startActivity(intent);
-                        finish();
+                        inviteToLiveChat(String.valueOf(DemoApplication.getInstance().getmUser().roomid));
+//                        Intent intent = new Intent(UserActivity.this, LiveAnchorActivity.class);
+//                        intent.putExtra("liveroom", DemoApplication.getInstance().getRoom());
+//                        startActivity(intent);
+//                        finish();
 //                        new Thread(new Runnable() {
 //                            @Override
 //                            public void run() {
@@ -172,11 +169,6 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
 
                     }
                 });
-        //2.创建一个群组
-        //3.设置设置房主为选取的B
-        //4.开始直播
-        //5.直播将流地址发给B
-        //6.B播放流
     }
 
     private void createRoom() {
@@ -245,16 +237,28 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
 
     private void inviteToLiveChat(String roomId) {
         EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
-
         //支持单聊和群聊，默认单聊，如果是群聊添加下面这行
-//        cmdMsg.setChatType(ChatType.GroupChat)
-        String action = MESSAGE.JION_ROOM + roomId;//action可以自定义
-        EMCmdMessageBody cmdBody = new EMCmdMessageBody(action);
+        cmdMsg.setChatType(EMMessage.ChatType.GroupChat);
         String toUsername = DemoApplication.getInstance().getOther().name;//发送给某个人
-        cmdMsg.setTo(toUsername);
+        EMCmdMessageBody cmdBody = new EMCmdMessageBody(M.buildInviteUser(roomId, toUsername));
+        cmdMsg.setTo(TO_GROUP);
         cmdMsg.addBody(cmdBody);
         EMClient.getInstance().chatManager().sendMessage(cmdMsg);
     }
+
+
+//    private void inviteToLiveChat(String roomId) {
+//        EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
+//
+//        //支持单聊和群聊，默认单聊，如果是群聊添加下面这行
+////        cmdMsg.setChatType(ChatType.GroupChat)
+//        String action = M.JION_ROOM + roomId;//action可以自定义
+//        EMCmdMessageBody cmdBody = new EMCmdMessageBody(action);
+//        String toUsername = DemoApplication.getInstance().getOther().name;//发送给某个人
+//        cmdMsg.setTo(toUsername);
+//        cmdMsg.addBody(cmdBody);
+//        EMClient.getInstance().chatManager().sendMessage(cmdMsg);
+//    }
 
 
     private void showNotActive() {
@@ -280,7 +284,7 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
         for (EMMessage ms :
                 messages) {
             String action = ((EMCmdMessageBody) ms.getBody()).action();
-            if (action.startsWith(MESSAGE.JION_ROOM_REPLAY)) {
+            if (action.startsWith(M.JION_ROOM_REPLAY)) {
                 //b也加入了聊天室
                 //让B成为管理员
                 try {
@@ -290,12 +294,7 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //进入直播节目
-                            dismissProgressDialog();
-                            Intent intent = new Intent(UserActivity.this, LiveAnchorActivity.class);
-                            intent.putExtra("liveroom", DemoApplication.getInstance().getRoom());
-                            startActivity(intent);
-                            finish();
+                            toA();
                         }
                     });
                 } catch (HyphenateException e) {
@@ -303,6 +302,15 @@ public class UserActivity extends BaseActivity implements EMMessageListener {
                 }
             }
         }
+    }
+
+    private void toA() {
+        //进入直播节目
+        dismissProgressDialog();
+        Intent intent = new Intent(UserActivity.this, LiveAnchorActivity.class);
+        intent.putExtra("liveroom", DemoApplication.getInstance().getRoom());
+        startActivity(intent);
+        finish();
     }
 
     @Override

@@ -32,6 +32,8 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.ucloud.uvod.UMediaProfile;
 import com.ucloud.uvod.UPlayerStateListener;
 import com.ucloud.uvod.widget.UVideoView;
+
+import java.security.spec.ECField;
 import java.util.Random;
 
 public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerStateListener {
@@ -54,6 +56,7 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
 
 
         mVideoView = (UVideoView) findViewById(R.id.videoview);
+        EMClient.getInstance().chatManager().addMessageListener(msgListener);
 
     }
     private void connect(){
@@ -157,7 +160,6 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
         mVideoView.onResume();
         EaseUI.getInstance().pushActivity(this);
         // register the event listener when enter the foreground
-        EMClient.getInstance().chatManager().addMessageListener(msgListener);
     }
 
     @Override protected void onPause() {
@@ -169,7 +171,6 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
         super.onStop();
         // unregister this event listener when this activity enters the
         // background
-        EMClient.getInstance().chatManager().removeMessageListener(msgListener);
 
         // 把此activity 从foreground activity 列表里移除
         EaseUI.getInstance().popActivity(this);
@@ -182,7 +183,7 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
 
             //postUserChangeEvent(StatisticsType.LEAVE, EMClient.getInstance().getCurrentUser());
         }
-
+        EMClient.getInstance().chatManager().removeMessageListener(msgListener);
         if (chatRoomChangeListener != null) {
             EMClient.getInstance()
                     .chatroomManager()

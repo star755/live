@@ -21,6 +21,7 @@ public class DemoApplication extends Application{
   private static DemoApplication instance;
   private UserModule other;
   private LiveRoom room;
+  private String otherUserName;
 
   public String getCurrentUserName() {
     return currentUserName;
@@ -100,5 +101,13 @@ public class DemoApplication extends Application{
 
   public LiveRoom getRoom() {
     return room;
+  }
+
+  public void setOtherUserName(String otherUserName) {
+    this.otherUserName = otherUserName;
+  }
+
+  public String getOtherUserName() {
+    return otherUserName;
   }
 }

@@ -19,7 +19,7 @@ public class UserModule {
     public String status;
     public String Flag;
     public boolean insystem;
-    public int roomid;
+    public String roomid;
     public double longitude;
     public double latitude;
 }
