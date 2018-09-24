@@ -98,7 +98,7 @@
             android:process=":remote" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="3ecea51f560650b1ed8a4b99808f52e8" />
+            android:value="rKE9uGZIhlp0L9RqlCBSbOviNL2rpMH4" />
         <service
             android:name="com.hyphenate.chat.EMChatService"
             android:exported="true" />

@@ -259,7 +259,7 @@ public abstract class LiveBaseActivity extends BaseActivity {
     private EMChatRoom room;
 
 
-    EMMessageListener msgListener = new EMMessageListener() {
+    protected EMMessageListener msgListener = new EMMessageListener() {
 
         @Override
         public void onMessageReceived(List<EMMessage> messages) {

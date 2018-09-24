@@ -2,9 +2,11 @@ package com.easemob.livedemo.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -57,7 +59,7 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
     String rtmpPlayStreamUrl = "rtmp://vlive3.rtmp.cdn.ucloud.com.cn/ucloud/";
     private UVideoView mVideoView;
     private UMediaProfile profile;
-
+    private Handler handler=null;
     @BindView(R.id.loading_layout) RelativeLayout loadingLayout;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
     @BindView(R.id.loading_text) TextView loadingText;
@@ -82,14 +84,18 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
         switchCameraView.setVisibility(View.INVISIBLE);
         likeImageView.setVisibility(View.VISIBLE);
         mVideoView = (UVideoView) findViewById(R.id.videoview);
+        handler=new Handler();
         EMClient.getInstance().chatManager().addMessageListener(msgListener);
 
         //debug();
         //startChat();
+        //loadingLayout.setVisibility(View.INVISIBLE);
+        //joinChatRoom();
+        //loadData();
     }
 
     private void debug() {
-        chatroomId = "61095445331969";
+        chatroomId = "61212976021505";
     }
 
     private void connect(){
@@ -132,7 +138,8 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
     }
 
     private void joinChatRoom() {
-        loadingLayout.setVisibility(View.INVISIBLE);
+        this.loadingLayout.setVisibility(View.INVISIBLE);
+        Log.v("asdf", "joinChatRoom :2" );
         EMClient.getInstance()
                 .chatroomManager()
                 .joinChatRoom(chatroomId, new EMValueCallBack<EMChatRoom>() {
@@ -163,10 +170,21 @@ public class LiveAudienceActivity extends LiveBaseActivity implements UPlayerSta
 
     @Override
     void startChat() {
-        loadingLayout.setVisibility(GONE);
-        joinChatRoom();
-        loadData();
+        handler.post(udpUIRunnable); //向Handler post runnable对象
     }
+
+    // 构建Runnable对象，并在runnable中更新UI
+    Runnable   udpUIRunnable=new  Runnable(){
+        @Override
+        public void run() {
+            Log.v("asdf", "startChat :1" );
+            loadingLayout.setVisibility(GONE);
+            Log.v("asdf", "startChat :2" );
+            joinChatRoom();
+            Log.v("asdf", "startChat :joinChatRoom" );
+            loadData();
+        }
+    };
 
     private void loadData() {
         if(user.isB()){
